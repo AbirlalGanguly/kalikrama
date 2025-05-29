@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="sa">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>क्रमाक्रमप्रवाहः</title>
+  <style>
+    body {
+      font-family: 'Noto Sans Devanagari', 'Segoe UI', sans-serif;
+      background: #f2f7ff;
+      color: #222;
+      text-align: center;
+      padding: 2em;
+    }
+    .infinity {
+      font-size: 3rem;
+      margin-bottom: 1em;
+      color: #3b82f6;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1em;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .cell {
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      padding: 1em;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .cell:hover {
+      background: #e0edff;
+    }
+    .title {
+      font-weight: bold;
+      margin-bottom: 0.5em;
+      font-size: 1.3em;
+    }
+    .tooltip {
+      visibility: hidden;
+      background-color: #222;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 0.5em;
+      position: absolute;
+      z-index: 1;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .cell:hover .tooltip {
+      visibility: visible;
+      opacity: 1;
+    }
+    .footer {
+      margin-top: 2em;
+      font-size: 0.9em;
+      color: #666;
+    }
+    table {
+      margin: 2em auto;
+      border-collapse: collapse;
+      font-size: 1.1em;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+    th, td {
+      padding: 0.5em 1em;
+    }
+    th {
+      background-color: #e6f0ff;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="infinity">स्वरूपः (∞)</div>
+  <div class="grid">
+    <div class="cell"><div class="title">सृष्टिः × सृष्टिः</div></div>
+    <div class="cell"><div class="title">सृष्टिः × स्थितिः</div></div>
+    <div class="cell"><div class="title">सृष्टिः × लयः</div></div>
+    <div class="cell"><div class="title">सृष्टिः × विश्रमः</div></div>
+    <div class="cell"><div class="title">स्थितिः × सृष्टिः</div></div>
+    <div class="cell"><div class="title">स्थितिः × स्थितिः</div></div>
+    <div class="cell"><div class="title">स्थितिः × लयः</div></div>
+    <div class="cell"><div class="title">स्थितिः × विश्रमः</div></div>
+    <div class="cell"><div class="title">लयः × सृष्टिः</div></div>
+    <div class="cell"><div class="title">लयः × स्थितिः</div></div>
+    <div class="cell"><div class="title">लयः × लयः</div></div>
+    <div class="cell"><div class="title">लयः × विश्रमः</div></div>
+  </div>
+
+  <table>
+    <caption><strong>Symbol Table</strong></caption>
+    <thead>
+      <tr>
+        <th>Sanskrit Words</th>
+        <th>Symbols</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>सृष्टिः</td><td>Sr</td></tr>
+      <tr><td>स्थितिः</td><td>St</td></tr>
+      <tr><td>लयः/भङ्गः</td><td>Ly</td></tr>
+      <tr><td>विश्रमः/अनाख्या/अक्रमः</td><td>An</td></tr>
+    </tbody>
+  </table>
+
+  <div class="footer">
+    Reality (∞) = {Sr, St, Ly} × {Sr, St, Ly, An} ⊕ ∞
+  </div>
+</body>
+</html>
