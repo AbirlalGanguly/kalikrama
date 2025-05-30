@@ -1,118 +1,410 @@
 <!DOCTYPE html>
 <html lang="sa">
 <head>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>क्रमाक्रमप्रवाहः</title>
+  <title>क्रमसम्प्रदायः</title>
+  <link href="https://fonts.googleapis.com/css2?family=Jaini" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Vesper Libre" rel="stylesheet">
+
   <style>
     body {
-      font-family: 'Noto Sans Devanagari', 'Segoe UI', sans-serif;
-      background: #f2f7ff;
-      color: #222;
+      font-family: 'Vesper Libre';
+      background: linear-gradient(to bottom, #fdfd8b, #fffae3);
+      color: #1e293b;
       text-align: center;
       padding: 2em;
+      margin: 0;
     }
-    .infinity {
-      font-size: 3rem;
-      margin-bottom: 1em;
-      color: #3b82f6;
-    }
+
     .grid {
       display: grid;
+      font-size: 1.2em;
       grid-template-columns: repeat(4, 1fr);
-      gap: 1em;
-      max-width: 600px;
+      gap: 1.5em;
+      max-width: 960px;
       margin: 0 auto;
     }
+
+    .grid-2 {
+      display: grid;
+      font-size: 1.9em;
+      grid-template-columns: 1;
+      gap: 1.2em;
+      max-height: 200px;
+      max-width: 225px;
+      margin: 0 auto;
+      margin-bottom: 50px;
+      font-family: 'jaini';
+      align-items: stretch;
+    }
+
+    .grid-2 .cell {
+      width: 138px;          /* or any fixed value */
+      height: 100px;         /* same as width for a circle */
+      border-radius: 50%;    /* makes it circular */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff6f6;
+      box-shadow: 0 0 10px #ccc;
+      margin: auto;          /* center the item in its grid cell */
+    }
+
+
     .cell {
-      border-radius: 12px;
-      background: #fff;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      padding: 1em;
-      transition: 0.3s;
+      border-radius: 14px;
+      background: white;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+      padding: 1.5em 1em;
+      transition: transform 0.3s, background 0.3s;
       cursor: pointer;
     }
+
     .cell:hover {
-      background: #e0edff;
+      background: #fffdcb;
+      transform: translateY(-6px);
     }
+
     .title {
-      font-weight: bold;
-      margin-bottom: 0.5em;
-      font-size: 1.3em;
+      font-weight: 600;
+      font-size: 1.25em;
     }
-    .tooltip {
-      visibility: hidden;
-      background-color: #222;
-      color: #fff;
-      text-align: center;
-      border-radius: 6px;
-      padding: 0.5em;
-      position: absolute;
-      z-index: 1;
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    .cell:hover .tooltip {
-      visibility: visible;
-      opacity: 1;
-    }
-    .footer {
-      margin-top: 2em;
-      font-size: 0.9em;
-      color: #666;
-    }
+
     table {
-      margin: 2em auto;
+      margin: 3em auto 1em auto;
       border-collapse: collapse;
       font-size: 1.1em;
+      box-shadow: 0 0 12px rgba(0,0,0,0.05);
     }
+
     table, th, td {
-      border: 1px solid #ccc;
+      border: 1px solid #ffef88;
     }
+
     th, td {
-      padding: 0.5em 1em;
+      padding: 0.6em 1.2em;
     }
+
     th {
-      background-color: #e6f0ff;
+      background-color: #ffdd7f;
+      font-weight: bold;
     }
+
+    .footer {
+      margin-top: 3em;
+      font-size: 0.95em;
+      color: #334155;
+      padding: 1em;
+      background: #fff789;
+      border-radius: 10px;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+
+    .expanded-content {
+      display: none;
+      margin-top: 2.5em;
+      font-size: 1.2em;
+      background: #ffffff;
+      padding: 2em;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .expanded-content h2 {
+      color: #1d4ed8;
+      margin-bottom: 0.75em;
+      font-size: 2em;
+    }
+
+    .expanded-content p {
+      font-size: 1.1em;
+      line-height: 1.7;
+      margin-bottom: 1em;
+    }
+
+    button {
+      margin-top: 1.5em;
+      padding: 0.6em 1.8em;
+      font-size: 1em;
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #2563eb;
+    }
+
+    .header-wrapper {
+    margin-bottom: 2em;
+      animation: none ease-out;
+    }
+
+    .animated-header {
+      font-size: 3.4rem;
+      font-weight: 700;
+      color: #8b0000;
+      font-family: 'Jaini';
+      text-decoration: none;
+      display: inline-block;
+      position: relative;
+      animation: floatGlow 3s ease-in-out infinite;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .animated-header:hover {
+      color: #d40000;
+      transform: scale(1.07);
+      text-shadow: 0 0 10px rgba(255, 0, 0, 0.4), 0 0 20px rgba(255, 0, 0, 0.2);
+    }
+
+    .animated-header .infinite-symbol {
+      font-size: 1.3em;
+      color: #ff6347;
+      animation: pulseGlow 2s infinite alternate;
+      margin-right: 0.2em;
+    }
+
+    .infinite-symbol {
+    display: inline-block;
+    transform: rotate(90deg); /* Adjust degrees as needed */
+    padding: auto;
+    margin-left: 30px;
+    margin-right: 0%;
+    }
+
+    @keyframes pulseGlow {
+      from {
+        text-shadow: 0 0 6px rgba(255, 99, 71, 0.6);
+      }
+      to {
+        text-shadow: 0 0 16px rgba(255, 140, 0, 0.8);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .animated-header {
+        font-size: 2.4rem;
+      }
+    }
+
   </style>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari&display=swap" rel="stylesheet">
+
 </head>
+
 <body>
-  <div class="infinity">स्वरूपः (∞)</div>
-  <div class="grid">
-    <div class="cell"><div class="title">सृष्टिः × सृष्टिः</div></div>
-    <div class="cell"><div class="title">सृष्टिः × स्थितिः</div></div>
-    <div class="cell"><div class="title">सृष्टिः × लयः</div></div>
-    <div class="cell"><div class="title">सृष्टिः × विश्रमः</div></div>
-    <div class="cell"><div class="title">स्थितिः × सृष्टिः</div></div>
-    <div class="cell"><div class="title">स्थितिः × स्थितिः</div></div>
-    <div class="cell"><div class="title">स्थितिः × लयः</div></div>
-    <div class="cell"><div class="title">स्थितिः × विश्रमः</div></div>
-    <div class="cell"><div class="title">लयः × सृष्टिः</div></div>
-    <div class="cell"><div class="title">लयः × स्थितिः</div></div>
-    <div class="cell"><div class="title">लयः × लयः</div></div>
-    <div class="cell"><div class="title">लयः × विश्रमः</div></div>
+
+  <div class="header-wrapper">
+  <a href="reality_visual_new.html" class="animated-header" id="header">
+     परा<span class="infinite-symbol">∞</span>संवित्
+  </a>
   </div>
 
-  <table>
-    <caption><strong>Symbol Table</strong></caption>
+  <div class="grid-2" id="grid-2">
+    <div class="cell" onclick="showExpanded('svarupa')"><div class="title">स्वरूपम्</div></div>
+  </div>
+
+  <div class="grid" id="grid">
+    <div class="cell" onclick="showExpanded('sristikali')"><div class="title">सृष्टिसृष्टिः प्रमेये</div></div>
+    <div class="cell" onclick="showExpanded('raktakali')"><div class="title">सृष्टिस्थितिः प्रमेये</div></div>
+    <div class="cell" onclick="showExpanded('sthitinasakali')"><div class="title">सृष्टिविलयः प्रमेये</div></div>
+    <div class="cell" onclick="showExpanded('yamakali')"><div class="title">सृष्टिविश्रमः प्रमेये</div></div>
+    
+    <div class="cell" onclick="showExpanded('samharakali')"><div class="title">स्थितिसृष्टिः प्रमाणे</div></div>
+    <div class="cell" onclick="showExpanded('mrityukali')"><div class="title">स्थितिस्थितिः प्रमाणे</div></div>
+    <div class="cell" onclick="showExpanded('bhadrakali')"><div class="title">स्थितिविलयः प्रमाणे</div></div>
+    <div class="cell" onclick="showExpanded('martandakali')"><div class="title">स्थितिविश्रमः प्रमाणे</div></div>
+    
+    <div class="cell" onclick="showExpanded('paramarkakali')"><div class="title">लयसृष्टिः प्रमातरि</div></div>
+    <div class="cell" onclick="showExpanded('kalagnirudrakali')"><div class="title">लयस्थितिः प्रमातरि</div></div>
+    <div class="cell" onclick="showExpanded('mahakalakali')"><div class="title">लयविलयः प्रमातरि</div></div>
+    <div class="cell" onclick="showExpanded('mahabhairavaghoracandakali')"><div class="title">लयविश्रमः प्रमातरि</div></div>
+  </div>
+
+  <table id="table">
+    <caption><strong>शब्दलिंगानि</strong></caption>
     <thead>
-      <tr>
-        <th>Sanskrit Words</th>
-        <th>Symbols</th>
-      </tr>
+      <tr><th>शब्दाः</th><th>संकेताः</th></tr>
     </thead>
     <tbody>
-      <tr><td>सृष्टिः</td><td>Sr</td></tr>
-      <tr><td>स्थितिः</td><td>St</td></tr>
-      <tr><td>लयः/भङ्गः</td><td>Ly</td></tr>
+      <tr><td>सृष्टिः/प्रसरः/उन्मेषः</td><td>Sr</td></tr>
+      <tr><td>स्थितिः/संस्थितिः</td><td>St</td></tr>
+      <tr><td>लयः/विलयः/भङ्गः/संहारः</td><td>Ly</td></tr>
       <tr><td>विश्रमः/अनाख्या/अक्रमः</td><td>An</td></tr>
     </tbody>
   </table>
 
-  <div class="footer">
-    Reality (∞) = {Sr, St, Ly} × {Sr, St, Ly, An} ⊕ ∞
+  <div class="footer" id="footer">
+    Reality (∞) = {Sr, St, Ly} × {Sr, St, Ly, An} ⊕ ∞<br>
+    प्रमेयेण सृष्टिसम्बन्धः, प्रमाणेन स्थितिसम्बन्धः, प्रमात्रा लयसम्बन्धः
   </div>
+
+<div class="expanded-content" id="svarupa">
+    <h2>तत्रैते श्लोका भवन्ति</h2>
+    <p>
+      एकं स्वरूपरूपं प्रसरस्थितिविलयभेदतस्त्रिविधम्। <br> 
+      प्रत्येकमुदयसंस्थितिलयविश्रमतश्चतुर्विधं तदपि॥<br>
+      इतिवसुपञ्चकसंख्यं विधाय सहजस्वरूपमात्मीयम्। <br> 
+      विश्वविवर्तावर्तप्रवर्तकं जयति ते रूपम्॥
+    </p>
+    <p>
+      इति अवतारकनाथेन कालीप्रचये उक्तमिति जयरथः तन्त्रालोकविवरणे तृतीयाध्याये। अवतारकनाथेति शिवानन्दनाथः ज्ञाननेत्रानन्दनाथ इत्यपरसंज्ञः काश्मीरे क्रमावतारकः सिद्धाचार्यः सिद्धौघगणपूजितः देवीनयप्रदीपोद्बोधकः। अस्य महामाहेश्वरसोमानन्दाचार्यस्य परमेष्ठिगुरुता।
+    </p>
+    <button onclick="goBack()"> Back</button>
+  </div>
+
+  <div class="expanded-content" id="sristikali">
+    <h2>सृष्टिकाली</h2>
+    <p>
+      कौलार्णवानन्दघनोर्मिरूपाम् <br> उन्मेषमेषोभयभाजमन्तः।<br>
+      निलीयते नीलकुलालये या <br> तां सृष्टिकालीं सततं नमामि॥
+    </p>
+    <p>काल्याः प्रमेयपदे सृष्टिदशायाः स्वरूपं वर्ण्यते।</p>
+    <button onclick="goBack()"> Back</button>
+  </div>
+  <div class="expanded-content" id="raktakali">
+    <h2>रक्तकाली</h2>
+    <p>
+      महाविनोदार्पितमातृचक्र- <br> वीरेन्द्रकासृग्रसपानसक्ताम्।<br>
+      रक्तीकृतां च प्रलयात्यये तां <br> नमामि विश्वाकृतिरक्तकालीम्॥
+    </p>
+    <p>भगवत्याः प्रमेयपदे स्थितिदशायाः स्वरूपमुच्यते।</p>
+    <button onclick="goBack()"> Back</button>
+  </div>
+  <div class="expanded-content" id="sthitinasakali">
+    <h2>स्थितिनाशकाली</h2>
+    <p>
+      वाजिद्वयस्वीकृतवातचक्र- <br> प्रक्रान्तसंघट्टगमागमस्थाम्।<br>
+      शुचिर्ययास्तंगमितोर्चिषां तां <br> शान्तां नमामि स्थितिनाशकालीम्॥
+    </p>
+    <p>परदेवतायाः प्रमेयपदे लयदशायाः स्वरूपम्।</p>
+    <button onclick="goBack()"> Back</button>
+  </div>
+  <div class="expanded-content" id="yamakali">
+    <h2>यमकाली</h2>
+    <p>
+      सर्वार्थसंकर्षणसंयमस्य <br> यमस्य यन्तुर्जगतो यमाय।<br>
+      वपुर्महाग्रासविलासरागात् <br> सङ्कर्षयन्तीं प्रणमामि कालीम्॥
+    </p>
+    <p>प्रमेयपदे लयदशायाः काल्याः स्वरूपमेतत्</p>
+    <button onclick="goBack()"> Back</button>
+  </div>
+
+
+  <div class="expanded-content" id="samharakali">
+    <h2>संहारकाली</h2>
+    <p>
+       <br> <br>
+       <br> 
+    </p>
+    <p>प्रमाणपदे सृष्टिदशायाः काल्याः स्वरूपमेतत्</p>
+    <button onclick="goBack()"> Back</button>
+  </div>
+  <div class="expanded-content" id="mrityukali">
+    <h2>मृत्युकाली</h2>
+    <p>
+       <br> <br>
+       <br> 
+    </p>
+    <p>प्रमाणपदे स्थितिदशायाः काल्याः स्वरूपमेतत्</p>
+    <button onclick="goBack()"> Back</button>
+  </div>
+  <div class="expanded-content" id="bhadrakali">
+    <h2>भद्रकाली</h2>
+    <p>
+       <br> <br>
+       <br> 
+    </p>
+    <p>प्रमाणपदे लयदशायाः काल्याः स्वरूपमेतत्</p>
+    <button onclick="goBack()"> Back</button>
+  </div>
+  <div class="expanded-content" id="martandakali">
+    <h2>मार्तण्डकाली</h2>
+    <p>
+       <br>   <br>
+       <br>
+    </p>
+    <p>प्रमाणपदे अनाख्यदशायाः काल्याः स्वरूपमेतत्</p>
+    <button onclick="goBack()"> Back</button>
+  </div>
+
+
+  <div class="expanded-content" id="paramarkakali">
+    <h2>परमार्ककाली</h2>
+    <p>
+       <br> <br>
+       <br> 
+    </p>
+    <p>प्रमातृपदे सृष्टिदशायाः काल्याः स्वरूपमेतत्</p>
+    <button onclick="goBack()"> Back</button>
+  </div>
+  <div class="expanded-content" id="kalagnirudrakali">
+    <h2>कालाग्निरुद्रकाली</h2>
+    <p>
+       <br> <br>
+       <br> 
+    </p>
+    <p>प्रमातृपदे स्थितिदशायाः काल्याः स्वरूपमेतत्</p>
+    <button onclick="goBack()"> Back</button>
+  </div>
+  <div class="expanded-content" id="mahakalakali">
+    <h2>महाकालकाली</h2>
+    <p>
+       <br> <br>
+       <br> 
+    </p>
+    <p>प्रमातृपदे लयदशायाः काल्याः स्वरूपमेतत्</p>
+    <button onclick="goBack()"> Back</button>
+  </div>
+  <div class="expanded-content" id="mahabhairavaghoracandakali">
+    <h2>महाभैरवघोरचण्डकाली</h2>
+    <p>
+       <br>   <br>
+       <br>
+    </p>
+    <p>प्रमातृपदे अनाख्यदशायाः काल्याः स्वरूपमेतत्</p>
+    <button onclick="goBack()"> Back</button>
+  </div>
+
+
+  <script>
+    function showExpanded(id) {
+      document.getElementById('header').style.display = 'none';
+      document.getElementById('grid').style.display = 'none';
+      document.getElementById('grid-2').style.display = 'none';
+      document.getElementById('table').style.display = 'none';
+      document.getElementById('footer').style.display = 'none';
+
+      const sections = document.querySelectorAll('.expanded-content');
+      sections.forEach(sec => sec.style.display = 'none');
+
+      document.getElementById(id).style.display = 'block';
+    }
+
+    function goBack() {
+      document.getElementById('header').style.display = 'inline-block';
+      document.getElementById('grid').style.display = 'grid';
+      document.getElementById('grid-2').style.display = 'grid';
+      document.getElementById('table').style.display = 'table';
+      document.getElementById('footer').style.display = 'block';
+      
+      const sections = document.querySelectorAll('.expanded-content');
+      sections.forEach(sec => sec.style.display = 'none');
+    }
+    
+       
+  </script>
+
 </body>
 </html>
