@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="sa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>क्रमाक्रमस्वरूपस्पन्दः</title>
+  <style>
+    body { margin:0; background:#f2f7ff; display:flex; justify-content:center; align-items:center; height:100vh; }
+    canvas { background:#ffffff; border:1px solid #ccc; }
+    .label { font-family:'Noto Sans Devanagari', sans-serif; font-size:14px; fill:#333; }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari&display=swap" rel="stylesheet">
+</head>
+<body>
+  <canvas id="infCanvas" width="800" height="600"></canvas>
+  <script>
+    const canvas = document.getElementById('infCanvas');
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width, H = canvas.height;
+
+    // Four fixed nodes on infinity path with adjusted label offsets
+    const anchors = [
+      { t: 0,             label: 'स्थितिः',  dx: 10,  dy: -5  },
+      { t: Math.PI / 2,   label: 'प्रसारः',  dx: -16, dy: -25 },
+      { t: Math.PI,       label: 'लयः',     dx: -30, dy: -5  },
+      { t: 3 * Math.PI/2, label: 'विश्रमः', dx: -18, dy: 35  }
+    ];
+    // Three moving dots representing C, S, D
+    // Red = सृष्टिः (creation), Yellow = स्थितिः (stability), Black = भङ्गः (dissolution)
+    let movers = [
+      { offset: 0, color:'#FF0000' },   // Creation (सृष्टिः)
+      { offset: 2, color:'#FFFF00' },   // Stability (स्थितिः)
+      { offset: 4, color:'#000000' }    // Dissolution (भङ्गः)
+    ];
+    let time = 0;
+
+    function lemniscate(t){
+      const a = 150;
+      const denom = 1 + Math.sin(t)**2;
+      const x = a * Math.cos(t)/denom;
+      const y = a * Math.sin(t)*Math.cos(t)/denom;
+      return { x: W/2 + x, y: H/2 + y };
+    }
+
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      // draw infinity path
+      ctx.strokeStyle = '#888'; ctx.lineWidth = 2;
+      ctx.beginPath();
+      for(let i=0;i<=400;i++){
+        const t = i/400*2*Math.PI;
+        const p = lemniscate(t);
+        ctx.lineTo(p.x,p.y);
+      }
+      ctx.stroke();
+      
+      // draw anchors
+      ctx.fillStyle = '#333';
+      ctx.font = '16px Noto Sans Devanagari';
+      anchors.forEach(a => {
+        const p = lemniscate(a.t);
+        ctx.beginPath(); ctx.arc(p.x, p.y, 8, 0, 2*Math.PI); ctx.fill();
+        ctx.fillText(a.label, p.x + a.dx, p.y + a.dy);
+      });
+
+      // draw movers
+      movers.forEach(m => {
+        const tpos = time + m.offset;
+        const p = lemniscate(tpos);
+        ctx.beginPath(); ctx.fillStyle = m.color; ctx.arc(p.x, p.y, 6, 0, 2*Math.PI); ctx.fill();
+      });
+
+      time += 0.01;
+      requestAnimationFrame(draw);
+    }
+
+    draw();
+  </script>
+</body>
+</html>
